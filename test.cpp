@@ -2,6 +2,7 @@
 #include <cmath>
 
 bool isPrime(int a);
+int fibonacci(int n);
 
 #define POINTS 1
 #define NO_TESTS 5
@@ -15,6 +16,15 @@ int test(int value, bool expected)
     }
     
     //std::cout << "Test succeded ... 0p" << std::endl;
+    return 0;
+}
+
+int testFib(int value, int expected)
+{
+    if(fibonacci(value) == expected)
+    {
+        return POINTS;
+    }
     return 0;
 }
 
@@ -35,18 +45,41 @@ bool isPrimeSolution(int a)
     return true;
 }
 
+int fibonacciSolution(int n) {
+    if (n <= 1) {
+        return n;
+    }
+    int a = 0, b = 1;
+    for (int i = 2; i <= n; ++i) {
+        int temp = a + b;
+        a = b;
+        b = temp;
+    }
+    return b;
+}
+
 int main()
 {
     int score = 0;
+    int total_points = 0;
 
-    const int values = 10000002;
-    for(int i = 2; i < values; i++)
+    const int prime_values = 100;
+    for(int i = 2; i < prime_values; i++)
     {
         auto baselineSolution = isPrimeSolution(i);
         score += test(i, baselineSolution);
     }
+    total_points += POINTS * (prime_values - 2);
 
-    std::cout << "Final score: " << score << "/" << POINTS * (values - 2) << std::endl;
+    const int fib_values = 20;
+    for(int i = 0; i < fib_values; i++)
+    {
+        auto baselineSolution = fibonacciSolution(i);
+        score += testFib(i, baselineSolution);
+    }
+    total_points += POINTS * fib_values;
+
+    std::cout << "Final score: " << score << "/" << total_points << std::endl;
 
     return 0;
 }

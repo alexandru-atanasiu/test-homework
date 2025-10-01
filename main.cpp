@@ -15,3 +15,9 @@ bool isPrime(int a)
 
     return true;
 }
+
+int fibonacci(int n)
+{
+    // your code here
+    return 0;
+}
